@@ -5,11 +5,9 @@ from django.db import models
 class vendas(models.Model):
     nome = models.CharField(max_length=255, null=False, blank=False, verbose_name='Nome da Venda')
     valor = models.DecimalField(max_digits=12, decimal_places=2, null=False, blank=False,verbose_name='Valor da Venda')
-
     data_venda = models.DateField(auto_now_add=True, blank=True, null=False)
     hora_venda = models.TimeField(auto_now_add=True, blank=True, null=False,)
     data_hora_venda = models.DateTimeField(auto_now_add=True, blank=True, null=False)
-
     numero_venda = models.IntegerField(blank=False, null=False,verbose_name='Nº do produto')
     observacao_venda = models.TimeField(blank=True, null=True, verbose_name='Observação')
     comprovante_venda = models.FileField(upload_to= 'comprovante_venda/',verbose_name='Comprovante da Venda')
