@@ -1,7 +1,7 @@
 from django.db import models
 
 class Venda(models.Model):
-    nome = models.CharField(max_length=255, null=False, blank=False, verbose_name='Nome da Venda')
+    nome = models.CharField(max_length=255, null=False, blank=False, verbose_name='Nome do produto')
     valor = models.DecimalField(max_digits=12, decimal_places=2, null=False, blank=False,
                                 verbose_name='Valor total da Venda')
     data_venda = models.DateField(auto_now_add=True, blank=True, null=False)
