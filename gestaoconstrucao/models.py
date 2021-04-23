@@ -23,10 +23,9 @@ class Eletricos(models.Model):
     nome = models.CharField(max_length=255, blank=False, null=False)
     valor = models.DecimalField(max_digits=6, decimal_places=2, blank=False, null=True)
 
-
-
     def __str__(self):
         return self.nome + ' - R$: ' + str(self.valor)
+
 
 class Hidraulico(models.Model):
     nome = models.CharField(max_length=255, blank=False, null=False)
@@ -43,3 +42,21 @@ class Cliente(models.Model):
 
     def __str__(self):
         return self.nome
+
+
+class Vidro(models.Model):
+    nome = models.CharField(max_length=255, blank=False, null=False)
+    valor = models.DecimalField(max_digits=6, decimal_places=2, blank=False, null=False)
+    cor = models.CharField(max_length=255, blank=False, null=False)
+
+    def __str__(self):
+        return self.nome + '-R$: ' + str(self.valor)
+
+
+class Tinta(models.Model):
+    nome = models.CharField(max_length=255, blank=False, null=False)
+    valor = models.DecimalField(max_digits=6, decimal_places=2, blank=False, null=False)
+    cor = models.CharField(max_length=255, blank=False, null=False)
+
+    def __str__(self):
+        return self.nome + '-R$: ' + str(self.valor)
