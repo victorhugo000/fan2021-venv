@@ -8,7 +8,7 @@ from django.db import models
 
 
 class Venda(models.Model):
-    numero_venda = models.IntegerField(blank=False, null=False, verbose_name='Número da venda')
+    numero_venda = models.IntegerField(blank=False, null=True, verbose_name='Número da venda')
     cliente = models.ForeignKey('Cliente', on_delete=models.DO_NOTHING, default=0)
 
     ProdutosEletricos = models.ManyToManyField('Eletricos', blank=True, null=True, verbose_name='Estoque: Eletricos')
@@ -25,23 +25,23 @@ class Venda(models.Model):
     Produtosmaq = models.ManyToManyField('Maquina', blank=True, null=True, verbose_name='Estoque: Maquina')
     Produtosped = models.ManyToManyField('Pedra', blank=True, null=True, verbose_name='Estoque: Pedra')
 
-    valor = models.DecimalField(max_digits=12, decimal_places=2, null=False, blank=False,
+    valor = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=False,
                                 verbose_name='Valor total da Venda')
 
-    data_venda = models.DateField(auto_now_add=True, blank=True, null=False)
-    hora_venda = models.TimeField(auto_now_add=True, blank=True, null=False)
-    data_hora_venda = models.DateTimeField(auto_now_add=True, blank=True, null=False)
+    data_venda = models.DateField(auto_now_add=True, blank=True, null=True)
+    hora_venda = models.TimeField(auto_now_add=True, blank=True, null=True)
+    data_hora_venda = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     observacao = models.TextField(blank=True, null=True, verbose_name='Observação')
     comprovante_venda = models.FileField(blank=True, null=True, verbose_name='Comprovante de venda')
-    venda_concluida = models.BooleanField(blank=False, null=False)
+    venda_concluida = models.BooleanField(blank=False, null=True)
 
     def __str__(self):
         return 'Comprador: ' + str(self.cliente) + ' | Data da venda: ' + str(self.data_venda)
 
 
 class Cliente(models.Model):
-    nome = models.CharField(max_length=255, blank=False, null=False, verbose_name='Nome')
-    cpf = models.CharField(max_length=11, blank=False, null=False, verbose_name='CPF')
+    nome = models.CharField(max_length=255, blank=False, null=True, default=0, verbose_name='Nome')
+    cpf = models.CharField(max_length=11, blank=False, null=True, default=0, verbose_name='CPF')
     email_cliente = models.EmailField(blank=True, null=True, verbose_name='Email')
     confirmacao = models.BooleanField(blank=False, null=False, verbose_name='Confirmar cadastro')
 
@@ -60,7 +60,7 @@ class Eletricos(models.Model):
 
 
 class Hidraulicos(models.Model):
-    nome = models.CharField(max_length=255, blank=False, null=False)
+    nome = models.CharField(max_length=255, blank=False, null=True, default=0)
     valor = models.DecimalField(max_digits=6, decimal_places=2, blank=False, null=True)
     descricao = models.TextField(blank=True, null=True, verbose_name='Descrição')
     confirmacao = models.BooleanField(blank=False, null=False, verbose_name='Confirmar cadastro')
@@ -70,10 +70,10 @@ class Hidraulicos(models.Model):
 
 
 class Vidros(models.Model):
-    nome = models.CharField(max_length=255, blank=False, null=False)
+    nome = models.CharField(max_length=255, blank=False, null=True, default=0)
     valor = models.DecimalField(max_digits=12, decimal_places=2, blank=False, null=False)
     cor = models.CharField(max_length=255, blank=False, null=False)
-    espessura = models.CharField(max_length=255, blank=True, null=True, verbose_name='Espessura')
+    espessura = models.CharField(max_length=255, blank=True, null=True, default=0, verbose_name='Espessura')
     descricao = models.TextField(blank=True, null=True, verbose_name='Descrição')
     confirmacao = models.BooleanField(blank=False, null=False, verbose_name='Confirmar cadastro')
 
@@ -104,7 +104,7 @@ class Estrutura(models.Model):
 
 
 class Pisos(models.Model):
-    nome = models.CharField(max_length=255, blank=False, null=False)
+    nome = models.CharField(max_length=255, blank=False, null=True, default=0)
     valor = models.DecimalField(max_digits=6, decimal_places=2, blank=False, null=False)
     descricao = models.TextField(blank=True, null=True, verbose_name='Descrição')
     confirmacao = models.BooleanField(blank=False, null=False, verbose_name='Confirmar cadastro')
@@ -114,8 +114,8 @@ class Pisos(models.Model):
 
 
 class Cobertas(models.Model):
-    nome = models.CharField(max_length=255, blank=False, null=False)
-    dimensaos = models.CharField(max_length=255, blank=False, null=False, verbose_name='Dimensões')
+    nome = models.CharField(max_length=255, blank=False, null=True, default=0)
+    dimensaos = models.CharField(max_length=255, blank=False, null=True, default=0, verbose_name='Dimensões')
     valor = models.DecimalField(max_digits=6, decimal_places=2, blank=False, null=False)
     descricao = models.TextField(blank=True, null=True, verbose_name='Descrição')
     confirmacao = models.BooleanField(blank=False, null=False, verbose_name='Confirmar cadastro')
@@ -125,7 +125,7 @@ class Cobertas(models.Model):
 
 
 class Ferramentas(models.Model):
-    nome = models.CharField(max_length=255, blank=False, null=False)
+    nome = models.CharField(max_length=255, blank=False, null=True, default=0)
     valor = models.DecimalField(max_digits=6, decimal_places=2, blank=False, null=False)
     descricao = models.TextField(blank=True, null=True, verbose_name='Descrição')
     confirmacao = models.BooleanField(blank=False, null=False, verbose_name='Confirmar cadastro')
@@ -137,10 +137,10 @@ class Ferramentas(models.Model):
 
 
 class Iluminacao(models.Model):
-    nome = models.CharField(max_length=255, blank=False, null=False)
+    nome = models.CharField(max_length=255, blank=False, null=True, default=0)
     valor = models.DecimalField(max_digits=6, decimal_places=2, blank=False, null=False)
     descricao = models.TextField(blank=True, null=True, verbose_name='Descrição')
-    ambien = models.CharField(max_length=255, blank=False, null=False, verbose_name='Em qual ambiente será utilizada?')
+    ambien = models.CharField(max_length=255, blank=False, null=True, default=0, verbose_name='Em qual ambiente será utilizada?')
     confirmacao = models.BooleanField(blank=False, null=False, verbose_name='Confirmar cadastro')
 
     def __str__(self):
@@ -148,10 +148,10 @@ class Iluminacao(models.Model):
 
 
 class Esquadria(models.Model):
-    nome = models.CharField(max_length=255, blank=False, null=True)
-    material = models.CharField(max_length=255, blank=False, null=True, verbose_name='Material')
-    cor = models.CharField(max_length=255, blank=False, null=True)
-    dim = models.CharField(max_length=255, blank=False, null=True, verbose_name='Dimensões:')
+    nome = models.CharField(max_length=255, blank=False, null=True, default=0)
+    material = models.CharField(max_length=255, blank=False, null=True, default=0, verbose_name='Material')
+    cor = models.CharField(max_length=255, blank=False, null=True, default=0)
+    dim = models.CharField(max_length=255, blank=False, null=True, default=0, verbose_name='Dimensões:')
     valor = models.DecimalField(max_digits=6, decimal_places=2, blank=False, null=True)
     des = models.TextField(blank=True, null=True, verbose_name='Descrição:')
     confirmacao = models.BooleanField(blank=False, null=False, verbose_name='Confirmar cadastro')
@@ -161,12 +161,12 @@ class Esquadria(models.Model):
 
 
 class Madeira(models.Model):
-    nome = models.CharField(max_length=255, blank=False, null=True)
-    tipo = models.CharField(max_length=255, blank=False, null=True)
+    nome = models.CharField(max_length=255, blank=False, null=True, default=0)
+    tipo = models.CharField(max_length=255, blank=False, null=True, default=0)
     valor = models.DecimalField(max_digits=6, decimal_places=2, blank=False, null=True)
-    utiliz = models.CharField(max_length=255, blank=False, null=False, verbose_name='Qual a utilização?')
+    utiliz = models.CharField(max_length=255, blank=False, null=True, default=0, verbose_name='Qual a utilização?')
     metros = models.DecimalField(max_digits=6, decimal_places=2, blank=False, null=True)
-    formato = models.CharField(max_length=255, blank=False, null=True)
+    formato = models.CharField(max_length=255, blank=False, null=True, default=0)
     descricao = models.TextField(blank=True, null=True, verbose_name='Descrição')
     confirmacao = models.BooleanField(blank=False, null=False, verbose_name='Confirmar cadastro')
 
@@ -175,13 +175,13 @@ class Madeira(models.Model):
 
 
 class Pedra(models.Model):
-    tipo = models.CharField(max_length=255, blank=False, null=False)
+    tipo = models.CharField(max_length=255, blank=False, null=True, default=0)
     valor = models.DecimalField(max_digits=6, decimal_places=2, blank=False, null=True)
-    utilizacao = models.CharField(max_length=255, blank=False, null=False, verbose_name='Onde será utilizado?')
+    utilizacao = models.CharField(max_length=255, blank=False, null=True, default=0, verbose_name='Onde será utilizado?')
     descricao = models.TextField(blank=True, null=True, verbose_name='descrição')
     cor = models.CharField(max_length=255, blank=False, null=True)
     metros = models.DecimalField(max_digits=6, decimal_places=2, blank=False, null=True)
-    formato = models.CharField(max_length=255, blank=False, null=True)
+    formato = models.CharField(max_length=255, blank=False, null=True, default=0)
     confirmacao = models.BooleanField(blank=False, null=False, verbose_name='Confirmar cadastro')
 
     def __str__(self):
@@ -189,15 +189,15 @@ class Pedra(models.Model):
 
 
 class Maquina(models.Model):
-    nome = models.CharField(max_length=255, blank=False, null=False)
+    nome = models.CharField(max_length=255, blank=False, null=True, default=0)
     valor = models.DecimalField(max_digits=6, decimal_places=2, blank=False, null=True)
     descricao = models.TextField(blank=True, null=True, verbose_name='descrição')
-    nomeCondutor = models.CharField(max_length=255, blank=True, null=True, verbose_name='Nome do condutor')
-    cpfCondutor = models.CharField(max_length=11, blank=True, null=True, verbose_name='CPF do condutor')
-    cnhCondutor = models.CharField(max_length=10, blank=True, null=True, verbose_name='CPF')
-    placa = models.CharField(max_length=255, blank=True, null=True, verbose_name='Placa')
-    Marca = models.CharField(max_length=255, blank=True, null=True, verbose_name='Marca')
-    Cor = models.CharField(max_length=255, blank=True, null=True, verbose_name='Cor')
+    nomeCondutor = models.CharField(max_length=255, blank=True, null=True, default=0, verbose_name='Nome do condutor')
+    cpfCondutor = models.CharField(max_length=11, blank=True, null=True, default=0, verbose_name='CPF do condutor')
+    cnhCondutor = models.CharField(max_length=10, blank=True, null=True, default=0, verbose_name='CPF')
+    placa = models.CharField(max_length=255, blank=True, null=True, default=0, verbose_name='Placa')
+    Marca = models.CharField(max_length=255, blank=True, null=True, default=0, verbose_name='Marca')
+    Cor = models.CharField(max_length=255, blank=True, null=True, default=0, verbose_name='Cor')
     confirmacao = models.BooleanField(blank=False, null=False, verbose_name='Confirmar cadastro')
 
     def __str__(self):
