@@ -27,6 +27,7 @@ class Venda(models.Model):
 class Eletricos(models.Model):
     nome = models.CharField(max_length=255, blank=False, null=False)
     valor = models.DecimalField(max_digits=6, decimal_places=2, blank=False, null=True)
+    descricao = models.TextField(blank=True, null=True, verbose_name='Descrição')
 
     def __str__(self):
         return self.nome + ' - R$: ' + str(self.valor)
@@ -35,6 +36,7 @@ class Eletricos(models.Model):
 class Hidraulico(models.Model):
     nome = models.CharField(max_length=255, blank=False, null=False)
     valor = models.DecimalField(max_digits=6, decimal_places=2, blank=False, null=False)
+    descricao = models.TextField(blank=True, null=True, verbose_name='Descrição')
 
     def __str__(self):
         return self.nome + '- R$: ' + str(self.valor)
@@ -44,6 +46,7 @@ class Cliente(models.Model):
     nome = models.CharField(max_length=255, blank=False, null=False, verbose_name='Nome')
     cpf = models.CharField(max_length=11, blank=False, null=False, verbose_name='CPF')
     email_cliente = models.EmailField(blank=True, null=True, verbose_name='Email')
+    endereco = models.CharField(max_length=255, blank=False, null=True, default=0, verbose_name='Endereço')
 
     def __str__(self):
         return self.nome
@@ -53,6 +56,8 @@ class Vidro(models.Model):
     nome = models.CharField(max_length=255, blank=False, null=False)
     valor = models.DecimalField(max_digits=6, decimal_places=2, blank=False, null=False)
     cor = models.CharField(max_length=255, blank=False, null=False)
+    tipo = models.CharField(max_length=255, blank=False, null=True, default=0, verbose_name='Tipo')
+    fabricante = models.CharField(max_length=255, blank=False, null=True, default=0, verbose_name='Fabricante')
 
     def __str__(self):
         return self.nome + '-R$: ' + str(self.valor)
@@ -62,6 +67,8 @@ class Tinta(models.Model):
     nome = models.CharField(max_length=255, blank=False, null=False)
     valor = models.DecimalField(max_digits=6, decimal_places=2, blank=False, null=False)
     cor = models.CharField(max_length=255, blank=False, null=False)
+    tipo = models.CharField(max_length=255, blank=False, null=True, default=0, verbose_name='Tipo')
+    fabricante = models.CharField(max_length=255, blank=False, null=True, default=0, verbose_name='Fabricante')
 
     def __str__(self):
         return self.nome + '-R$: ' + str(self.valor)
@@ -74,6 +81,7 @@ class Esquadria(models.Model):
     dimencoes = models.CharField(max_length=255, blank=False, null=False)
     valor = models.DecimalField(max_digits=6, decimal_places=2, blank=False, null=False)
     descricao = models.TextField(blank=True, null=True)
+    fabricante = models.CharField(max_length=255, blank=False, null=True, default=0, verbose_name='Fabricante')
 
     def __str__(self):
         return str(self.nome) + '- R$: ' + str(self.valor)
@@ -84,6 +92,9 @@ class Madeira(models.Model):
     tipo = models.CharField(max_length=255, blank=False, null=False)
     valor = models.DecimalField(max_digits=6, decimal_places=2, blank=False, null=False)
     utiliz = models.CharField(max_length=255, blank=False, null=False)
+    metros = models.DecimalField(max_digits=6, decimal_places=2, blank=False, null=True, default=0)
+    formato = models.CharField(max_length=255, blank=False, null=True, default=0)
+    descricao = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return str(self.nome) + '- R$: ' + str(self.valor)
@@ -95,6 +106,8 @@ class Pedra(models.Model):
     utilizacao = models.CharField(max_length=255, blank=False, null=False)
     descricao = models.TextField(blank=True, null=True)
     cor = models.CharField(max_length=255, blank=False, null=False)
+    formato = models.CharField(max_length=255, blank=False, null=True, default=0)
+    metros = models.DecimalField(max_digits=6, decimal_places=2, blank=False, null=True, default=0)
 
     def __str__(self):
         return str(self.tipo) + '|' + str(self.utilizacao)
@@ -106,6 +119,11 @@ class Maquina(models.Model):
     valor = models.DecimalField(max_digits=6, decimal_places=2, blank=False, null=True)
     cor = models.CharField(max_length=255, blank=False, null=False)
     descricao = models.TextField(blank=True, null=True)
+    nomecondutor = models.CharField(max_length=255, blank=True, null=True, default=0, verbose_name='Nome do condutor')
+    cpfcondutor = models.CharField(max_length=11, blank=True, null=True, default=0, verbose_name='CPF')
+    placa = models.CharField(max_length=255, blank=True, null=True, verbose_name='Placa')
+    cnhcondutor = models.CharField(max_length=255, blank=True, null=True, default=0, verbose_name='CNH')
+    chassi = models.CharField(max_length=255, blank=True, null=True, default=0, verbose_name='Chassi')
 
     def __str__(self):
         return str(self.nome) + '|' + str(self.valor)
@@ -120,3 +138,54 @@ class Ceramica(models.Model):
 
     def __str__(self):
         return str(self.nome) + ' | ' + str(self.valor)
+
+
+class Coberta(models.Model):
+    nome = models.CharField(max_length=255, blank=False, null=True, default=0)
+    valor = models.DecimalField(max_digits=6, decimal_places=2, blank=False, null=False)
+    dimensoes = models.CharField(max_length=255, blank=True, null=True, verbose_name='Dimensões')
+    descricao = models.CharField(max_length=255, blank=True, null=True, verbose_name='Descrição')
+    marca = models.CharField(max_length=255, blank=False, null=False)
+
+    def __str__(self):
+        return str(self.nome) + ' -R$: ' + str(self.valor)
+
+
+class Ferramenta(models.Model):
+    nome = models.CharField(max_length=255, blank=False, null=True, default=0)
+    valor = models.DecimalField(max_digits=6, decimal_places=2, blank=False, null=False)
+    descricao = models.TextField(blank=True, null=True, verbose_name='Descrição')
+    marca = models.CharField(max_length=255, blank=False, null=False)
+    jogo = models.BooleanField(blank=True, null=True, verbose_name='Jogo completo')
+
+    def __str__(self):
+        return str(self.nome) + ' -R$: ' + str(self.valor)
+
+
+class Iluminacao(models.Model):
+    nome = models.CharField(max_length=255, blank=False, null=True, default=0)
+    valor = models.DecimalField(max_digits=6, decimal_places=2, blank=False, null=False)
+    descricao = models.TextField(blank=True, null=True, verbose_name='Descrição')
+    ambiente = models.CharField(max_length=255, blank=False, null=True, default=0, verbose_name='Ambiente de uso')
+    fabricante = models.CharField(max_length=255, blank=False, null=False, verbose_name='Fabricante')
+
+    def __str__(self):
+        return str(self.nome) + ' -R$: ' + str(self.valor)
+
+
+class Estrutura(models.Model):
+    nome = models.CharField(max_length=255, blank=False, null=False)
+    valor = models.DecimalField(max_digits=6, decimal_places=2, blank=False, null=False)
+    descricao = models.TextField(blank=True, null=True, verbose_name='Descrição')
+
+    def __str__(self):
+        return str(self.nome) + ' -R$: ' + str(self.valor)
+
+
+class Piso(models.Model):
+    nome = models.CharField(max_length=255, blank=False, null=True, default=0)
+    valor = models.DecimalField(max_digits=6, decimal_places=2, blank=False, null=False)
+    descricao = models.TextField(blank=True, null=True, verbose_name='Descrição')
+
+    def __str__(self):
+        return str(self.nome) + ' -R$: ' + str(self.valor)
