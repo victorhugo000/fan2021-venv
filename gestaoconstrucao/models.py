@@ -19,6 +19,13 @@ class Venda(models.Model):
     Produtoscer = models.ManyToManyField('Ceramica', blank=True, null=True, verbose_name='Ceramicas')
     Produtos1 = models.ManyToManyField('Eletricos', verbose_name='Produtos Eletricos')
     Produtos2 = models.ManyToManyField('Hidraulico', verbose_name='Produtos hidraulicos')
+    Produtovid = models.ManyToManyField('Vidro', verbose_name='Vidros')
+    Produtotin = models.ManyToManyField('Tinta', verbose_name='Tintas')
+    Produtocob = models.ManyToManyField('Coberta', verbose_name='Cobertas')
+    Produtofer = models.ManyToManyField('Ferramenta', verbose_name='Ferramentas')
+    Produtoilu = models.ManyToManyField('Iluminacao', verbose_name='Iluminação')
+    Produtoestru = models.ManyToManyField('Estrutura', verbose_name='Estrutura')
+    Produtopis = models.ManyToManyField('Piso', verbose_name='Piso')
 
     def __str__(self):
         return str(self.cliente)
