@@ -15,6 +15,8 @@ class Venda(models.Model):
     venda_concluida = models.BooleanField(blank=False, null=False)
     Produtosesq = models.ManyToManyField('Esquadria', blank=True, null=True)
     Produtosmad = models.ManyToManyField('Madeira', blank=True, null=True)
+    Produtosmaq = models.ManyToManyField('Maquina', blank=True, null=True)
+    Produtosped = models.ManyToManyField('Pedra', blank=True, null=True)
 
 
     def __str__(self):
@@ -84,3 +86,25 @@ class Madeira(models.Model):
 
     def __str__(self):
         return str(self.nome) + '- R$: ' + str(self.valor)
+
+
+class Pedra(models.Model):
+    tipo = models.CharField(max_length=255, blank=False, null=False)
+    valor = models.DecimalField(max_digits=6, decimal_places=2, blank=False, null=True)
+    utilizacao = models.CharField(max_length=255, blank=False, null=False)
+    descricao = models.TextField(blank=True, null=True)
+    cor = models.CharField(max_length=255, blank=False, null=False)
+
+    def __str__(self):
+        return str(self.tipo) + '|' + str(self.utilizacao)
+
+
+class Maquina(models.Model):
+    nome = models.CharField(max_length=255, blank=False, null=False)
+    marca = models.CharField(max_length=255, blank=False, null=False)
+    valor = models.DecimalField(max_digits=6, decimal_places=2, blank=False, null=True)
+    cor = models.CharField(max_length=255, blank=False, null=False)
+    descricao = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return str(self.nome) + '|' + str(self.valor)
