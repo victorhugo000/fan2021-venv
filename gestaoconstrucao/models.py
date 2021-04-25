@@ -165,6 +165,9 @@ class Madeira(models.Model):
     tipo = models.CharField(max_length=255, blank=False, null=True)
     valor = models.DecimalField(max_digits=6, decimal_places=2, blank=False, null=True)
     utiliz = models.CharField(max_length=255, blank=False, null=False, verbose_name='Qual a utilização?')
+    metros = models.DecimalField(max_digits=6, decimal_places=2, blank=False, null=True)
+    formato = models.CharField(max_length=255, blank=False, null=True)
+    descricao = models.TextField(blank=True, null=True, verbose_name='Descrição')
     confirmacao = models.BooleanField(blank=False, null=False, verbose_name='Confirmar cadastro')
 
     def __str__(self):
@@ -176,6 +179,9 @@ class Pedra(models.Model):
     valor = models.DecimalField(max_digits=6, decimal_places=2, blank=False, null=True)
     utilizacao = models.CharField(max_length=255, blank=False, null=False, verbose_name='Onde será utilizado?')
     descricao = models.TextField(blank=True, null=True, verbose_name='descrição')
+    cor = models.CharField(max_length=255, blank=False, null=True)
+    metros = models.DecimalField(max_digits=6, decimal_places=2, blank=False, null=True)
+    formato = models.CharField(max_length=255, blank=False, null=True)
     confirmacao = models.BooleanField(blank=False, null=False, verbose_name='Confirmar cadastro')
 
     def __str__(self):
